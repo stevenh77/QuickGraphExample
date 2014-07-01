@@ -13,14 +13,16 @@ namespace QuickGraphExample
 
             var result = map.GetShortestPath(start, destination);
 
+            Console.WriteLine(string.Format("Finding the shortest path between {0} and {1}", start, destination));
+
             if (result == null)
             {
-                Console.WriteLine("Cannot find shortest path");
+                Console.WriteLine("  Cannot find shortest path");
             }
             else
             {
                 foreach (var edge in result)
-                    Console.WriteLine(string.Concat(edge.Source, " > ", edge.Target));
+                    Console.WriteLine(string.Concat("  ", edge.Source, " > ", edge.Target));
             }
         }
     }
