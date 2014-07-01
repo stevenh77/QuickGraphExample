@@ -17,11 +17,11 @@ namespace QuickGraphExample
 
         public List<TrainLine> TrainLines { get; set; }
         public List<Station> Stations { get; set; }
-        public AdjacencyGraph<Station, Edge<Station>> Map { get; set; }
+        public BidirectionalGraph<Station, TaggedEdge<Station, TrainLine>> Map { get; set; }
 
         private void InitialiseMap()
         {
-            Map = new AdjacencyGraph<Station, Edge<Station>>(false);
+            Map = new BidirectionalGraph<Station, TaggedEdge<Station, TrainLine>>(false);
             foreach (var trainLine in TrainLines)
             {
                 Station previous = null;
@@ -32,7 +32,7 @@ namespace QuickGraphExample
 
                     if (station != trainLine.Stations.First())
                     {
-                        var edge = new Edge<Station>(previous, station);
+                        var edge = new TaggedEdge<Station, TrainLine>(previous, station, trainLine);
                         Map.AddEdge(edge);
                     }
                     previous = station;
@@ -40,14 +40,14 @@ namespace QuickGraphExample
             }
         }
 
-        public IEnumerable<Edge<Station>> GetShortestPath(Station start, Station destination)
+        public IEnumerable<TaggedEdge<Station, TrainLine>> GetShortestPath(Station start, Station destination)
         {
             // a delegate that gives the distance between stations (default to 1)
-            Func<Edge<Station>, double> stationDistances = x => 1;
+            Func<TaggedEdge<Station, TrainLine>, double> stationDistances = x => 1;
 
             var tryGetShortestPath = Map.ShortestPathsDijkstra(stationDistances, start);
 
-            IEnumerable<Edge<Station>> path;
+            IEnumerable<TaggedEdge<Station, TrainLine>> path;
             return tryGetShortestPath(destination, out path) ? path : null;
         }
 
