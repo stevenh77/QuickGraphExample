@@ -20,7 +20,7 @@ namespace QuickGraphExample
             else
             {
                 foreach (var edge in result)
-                    Console.WriteLine(edge.Source);
+                    Console.WriteLine(string.Concat(edge.Source, " > ", edge.Target));
             }
         }
     }
