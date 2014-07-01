@@ -1,0 +1,27 @@
+﻿using System;
+using System.Linq;
+
+namespace QuickGraphExample
+{
+    internal class Program
+    {
+        private static void Main(string[] args)
+        {
+            var map = new LondonUnderground();
+            var start = map.Stations.First(x => x.Name == StationNames.Victoria);
+            var destination = map.Stations.First(x => x.Name == StationNames.Marylebone);
+
+            var result = map.GetShortestPath(start, destination);
+
+            if (result == null)
+            {
+                Console.WriteLine("Cannot find shortest path");
+            }
+            else
+            {
+                foreach (var edge in result)
+                    Console.WriteLine(edge.Source);
+            }
+        }
+    }
+}
