@@ -23,5 +23,10 @@ namespace QuickGraphExample
             trainLines.Remove(trainLine);
             trainLine.RemoveStation(this);
         }
+
+        public override string ToString()
+        {
+            return this.Name;
+        }
     }
 }

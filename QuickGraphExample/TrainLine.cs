@@ -10,7 +10,7 @@ namespace QuickGraphExample
         public TrainLine(string name, IEnumerable<Station> orderedStations)
         {
             if (string.IsNullOrEmpty(name)) throw new Exception("Name must be set");
-            if (stations.IsNullOrEmpty()) throw new Exception("Stations must be set");
+            if (orderedStations.IsNullOrEmpty()) throw new Exception("Stations must be set");
 
             this.Name = name;
             foreach (var station in orderedStations)
@@ -35,6 +35,11 @@ namespace QuickGraphExample
         {
             stations.Remove(station);
             station.RemoveTrainLine(this);
+        }
+
+        public override string ToString()
+        {
+            return this.Name;
         }
     }
 }

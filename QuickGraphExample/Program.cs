@@ -8,8 +8,8 @@ namespace QuickGraphExample
         private static void Main(string[] args)
         {
             var map = new LondonUnderground();
-            var start = map.Stations.First(x => x.Name == StationNames.Victoria);
-            var destination = map.Stations.First(x => x.Name == StationNames.Marylebone);
+            var start = map.Stations.First(x => x.Name == StationNames.Marylebone);
+            var destination = map.Stations.First(x => x.Name == StationNames.Victoria);
 
             var result = map.GetShortestPath(start, destination);
 

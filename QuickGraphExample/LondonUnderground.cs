@@ -24,10 +24,18 @@ namespace QuickGraphExample
             Map = new AdjacencyGraph<Station, Edge<Station>>(false);
             foreach (var trainLine in TrainLines)
             {
+                Station previous = null;
                 foreach (var station in trainLine.Stations)
                 {
                     if (!Map.ContainsVertex(station))
                         Map.AddVertex(station);
+
+                    if (station != trainLine.Stations.First())
+                    {
+                        var edge = new Edge<Station>(previous, station);
+                        Map.AddEdge(edge);
+                    }
+                    previous = station;
                 }
             }
         }
@@ -50,7 +58,7 @@ namespace QuickGraphExample
             var bakerlooLine = trainLineFactory.CreateBakerlooLine(Stations);
             var circleLine = trainLineFactory.CreateCircleLine(Stations);
 
-            TrainLines.AddRange(new[] {victoriaLine, bakerlooLine, circleLine});
+            TrainLines = new List<TrainLine> { victoriaLine, bakerlooLine, circleLine };
         }
 
         private void InitialiseStations()
